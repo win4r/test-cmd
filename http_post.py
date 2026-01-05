@@ -51,6 +51,23 @@ def delete_request(url: str, params: dict = None, json_data: dict = None, header
     return response
 
 
+def put_request(url: str, data: dict = None, json_data: dict = None, headers: dict = None) -> requests.Response:
+    """
+    Make an HTTP PUT request.
+
+    Args:
+        url: The URL to send the request to
+        data: Form data to send (application/x-www-form-urlencoded)
+        json_data: JSON data to send (application/json)
+        headers: Optional headers to include
+
+    Returns:
+        Response object
+    """
+    response = requests.put(url, data=data, json=json_data, headers=headers)
+    return response
+
+
 if __name__ == "__main__":
     # Example usage - GET request
     get_url = "https://httpbin.org/get"
@@ -67,6 +84,16 @@ if __name__ == "__main__":
     payload = {"name": "John", "age": 30}
     response = post_request(post_url, json_data=payload)
     print("POST Request:")
+    print(f"Status: {response.status_code}")
+    print(f"Response: {response.json()}")
+
+    print()
+
+    # Example usage - PUT request
+    put_url = "https://httpbin.org/put"
+    payload = {"name": "John Updated", "age": 31}
+    response = put_request(put_url, json_data=payload)
+    print("PUT Request:")
     print(f"Status: {response.status_code}")
     print(f"Response: {response.json()}")
 
